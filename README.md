@@ -1,2 +1,2 @@
-# docker-alpine-subsonic-mysql
+# docker-subsonic
 Docker container for subsonic with mysql backend

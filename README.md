@@ -1,7 +1,8 @@
 # docker-subsonic
-Docker container for subsonic with mysql backend
+Docker container for the subsonic music streamer with mysql backend.
+I have split this into two docker-compose files since I am using the mysql stack for other containers also.
 
-mysql:
+mysql docker-compose.yml:
 <pre>
 version: '3.1'
 
@@ -40,7 +41,7 @@ networks:
 </pre>
 
 
-subsonic:
+subsonic docker-compose.yml:
 <pre>
 version: '3.1'
 

@@ -131,5 +131,4 @@ exec /usr/bin/java -Xmx${SUBSONIC_MAX_MEMORY}m \
     -Dsubsonic.defaultPodcastFolder=${SUBSONIC_DEFAULT_PODCAST_FOLDER} \
     -Dsubsonic.defaultPlaylistFolder=${SUBSONIC_DEFAULT_PLAYLIST_FOLDER} \
     -Djava.awt.headless=true \
-    -verbose:gc \
     -jar subsonic-booter-jar-with-dependencies.jar >> ${LOG} 2>&1

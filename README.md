@@ -1,6 +1,6 @@
 # docker-subsonic
-Docker container for the subsonic music streamer with mysql backend.
-I have split this into two docker-compose files since I am using the mysql stack for other containers also.
+Docker container for the subsonic music streamer with mysql backend.<br>
+I have split this into two docker-compose files since I am using the mysql stack for other containers also.<br>
 
 mysql docker-compose.yml:
 <pre>
@@ -64,7 +64,7 @@ services:
     networks:
       - mysql_db-net
     environment:
-      SUBSONIC_JDBC: "jdbc:mysql://db:3306/subsonic?user=root&password="my secret mysql password"&characterEncoding=UTF-8"
+      SUBSONIC_JDBC: "jdbc:"mysql stack name"://db:3306/subsonic?user=root&password="my secret mysql password"&characterEncoding=UTF-8"
     restart: always
 
 volumes:

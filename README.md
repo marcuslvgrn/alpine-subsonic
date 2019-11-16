@@ -1,44 +1,78 @@
 # docker-subsonic
 Docker container for subsonic with mysql backend
 
-mysql:<br>
-<code>
+mysql:
+<pre>
+version: '3.1'
 
-</code>
+services:
 
-subsonic:<br>
-<code>
-version: '3.1'<br>
-<br>
-services:<br>
-<br>
-  subsonic:<br>
-    image: lovgren/subsonic:latest<br>
-    container_name: subsonic<br>
-    ports:<br>
-      - "4040:4040"<br>
-      - "4043:4043"<br>
-    volumes:<br>
-      - /path/to/music:/var/music:ro<br>
-      - subsonic-db:/subsonic<br>
-      - subsonic-playlists:/playlists<br>
-      - subsonic-podcasts:/podcasts<br>
-      - subsonic-var:/var/subsonic<br>
-    external_links:<br>
-      - db:db<br>
-    networks:<br>
-      - mysql_db-net<br>
-    environment:<br>
-      SUBSONIC_JDBC: "jdbc:mysql://db:3306/subsonic?user=root&password="my secret password"&characterEncoding=UTF-8"<br>
-    restart: always<br>
-<br>
-volumes:<br>
-  subsonic-db:<br> 
-  subsonic-playlists:<br> 
-  subsonic-podcasts: <br>
-  subsonic-var:<br>
-<br>
-networks:<br>
-  "mhysql stack name"_db-net:<br>
-    external: true<br>
-</code>
+  db:
+    image: mysql:5.6
+    container_name: db
+    volumes:
+      - db-mysql:/var/lib/mysql
+    networks:
+      - db-net
+    environment:
+      MYSQL_ROOT_PASSWORD: "my secret mysql password"
+    restart: always
+
+  dbadmin:
+    image: phpmyadmin/phpmyadmin
+    container_name: dbadmin
+    links:
+      - db:db
+    restart: always
+    ports:
+     - 8000:80
+    volumes:
+     - dbadmin-sessions:/sessions
+    networks:
+      - db-net
+
+volumes:
+  db-mysql:
+  dbadmin-sessions:
+
+networks:
+  db-net:
+</pre>
+
+
+subsonic:
+<pre>
+version: '3.1'
+
+services:
+
+  subsonic:
+    image: lovgren/subsonic:latest
+    container_name: subsonic
+    ports:
+      - "4040:4040"
+      - "4043:4043"
+    volumes:
+      - /mnt/btrfs/Musik/mp3:/var/music:ro
+      - subsonic-db:/subsonic
+      - subsonic-playlists:/playlists
+      - subsonic-podcasts:/podcasts
+      - subsonic-var:/var/subsonic
+    external_links:
+      - db:db
+    networks:
+      - mysql_db-net
+    environment:
+      SUBSONIC_JDBC: "jdbc:mysql://db:3306/subsonic?user=root&password="my secret mysql password"&characterEncoding=UTF-8"
+    restart: always
+
+volumes:
+  subsonic-db: 
+  subsonic-playlists: 
+  subsonic-podcasts: 
+  subsonic-var: 
+
+networks:
+  "mysql stack name"_db-net:
+    external: true
+</pre>

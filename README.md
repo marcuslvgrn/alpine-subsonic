@@ -1,7 +1,7 @@
 # docker-subsonic
 Docker container for the subsonic music streamer with mysql backend.<br>
-I have split this into two docker-compose files since I am using the mysql stack for other containers also.<br>
-
+I have split this into two docker-compose files since I am using the mysql stack for other containers also. They could also be started from the same file, but without the external network then.<br>
+Note that the mysql docker stack name and mysql password needs to be replaced in the text below.<br>
 mysql docker-compose.yml:
 <pre>
 version: '3.1'
@@ -54,7 +54,7 @@ services:
       - "4040:4040"
       - "4043:4043"
     volumes:
-      - /mnt/btrfs/Musik/mp3:/var/music:ro
+      - /path/to/music:/var/music:ro
       - subsonic-db:/subsonic
       - subsonic-playlists:/playlists
       - subsonic-podcasts:/podcasts

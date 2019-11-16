@@ -7,12 +7,11 @@ ENV SUBSONIC_UID=10000
 ENV SUBSONIC_GID=10000
 ENV SUBSONIC_HOME=/usr/share/subsonic
 ENV SUBSONIC_DATA=/var/subsonic
-ARG SUBSONIC_VERSION
-RUN export SUBSONIC_VERSION=${SUBSONIC_VERSION}
-#ENV SUBSONIC_VERSION=${VERSION}
+ARG VERSION
+RUN export VERSION=$VERSION
 
 # Add subsonic tar.gz
-ADD https://sourceforge.net/projects/subsonic/files/subsonic/${SUBSONIC_VERSION}/subsonic-${SUBSONIC_VERSION}-standalone.tar.gz/download /tmp/subsonic.tar.gz
+ADD https://sourceforge.net/projects/subsonic/files/subsonic/${VERSION}/subsonic-${VERSION}-standalone.tar.gz/download /tmp/subsonic.tar.gz
 
 # - Create a new group 'subsonic' with SUBSONIC_GID, home $SUBSONIC_HOME
 # - Create user 'subsonic' with SUBSONIC_UID, add to that group.
